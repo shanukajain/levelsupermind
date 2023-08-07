@@ -20,6 +20,7 @@ app.use("/comment",commentRouter);
 app.get("/check",(req,res)=>{
     res.send("done");
 })
+
 app.listen("4000",async()=>{
     try {
         await sequelize.sync();
