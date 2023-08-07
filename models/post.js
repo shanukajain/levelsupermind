@@ -1,5 +1,7 @@
 const DataTypes=require("sequelize");
 const { sequelize } = require("../config");
+const Comments = require("./comments");
+const users = require("./user");
 const Posts=sequelize.define("post",{
     id:{
         type:DataTypes.INTEGER,
@@ -21,5 +23,6 @@ const Posts=sequelize.define("post",{
 },{
   timestamps: false
 });
+
 
 module.exports={Posts};

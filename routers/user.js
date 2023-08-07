@@ -10,11 +10,12 @@ UserRouter.get("/", async (req, res) => {
   res.send(data);
 });
 
-UserRouter.post("/sign_in", async (req, res) => {
+UserRouter.post("/sign_up", async (req, res) => {
   let body = req.body;
   try {
-    console.log(body);
+    // console.log(body);
     let data = await users.findOne({where:{ "username": body.username }});
+    console.log(data);
     if (data) {
         console.log(data,123);
       res.send({ msg: "user already exits" });

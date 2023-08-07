@@ -22,7 +22,7 @@ commentRouter.post("/create",async(req,res)=>{ try {
         if(post_id){
         let payload={"authorId":body.user_id,"postId":body.postId,"body":body.body};
        let p= await Comments.create(payload);
-        res.status(200).send("created");
+        res.status(200).send({"msg":"created"});
         }else {
             res.send("post not avaliable")
         }
@@ -54,12 +54,17 @@ commentRouter.patch("/update/:id",async(req,res)=>{
 commentRouter.delete("/delete/:id",async(req,res)=>{
     try {
         let body=req.body
-        body.post_title=body.title;
         let id=req.params.id;
-            let data = await commentRouter.findOne({ where: { id: id } });
+        console.log(id);
+            let data = await Comments.findOne({ where: { id: id } });
         if (data) {
+            if(data.authorId==req.body.user_id){
           await data.destroy(body);
-          res.send("done")
+          console.log(123)
+          res.send({"msg":"done"})
+            }else {
+                res.send({"msg":"you cant delete it"})
+            }
         }else {
             res.send({"msg":"please provide vaild id"})
         }

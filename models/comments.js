@@ -1,5 +1,7 @@
 const DataTypes=require("sequelize");
 const { sequelize } = require("../config");
+const users = require("./user");
+const { Posts } = require("./post");
 const Comments=sequelize.define("comment",{
     id:{
         type:DataTypes.INTEGER,
@@ -22,5 +24,9 @@ const Comments=sequelize.define("comment",{
   timestamps: false
 }
 );
+// Comments.hasMany(users, { foreignKey: 'id' });
+// Comments.hasMany(Posts, { foreignKey: 'postId' });
+
+
 
 module.exports=Comments;

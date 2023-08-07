@@ -1,22 +1,63 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import Post from './Post';
+
+const url="http://localhost:4000/users/login"
+async function fetchdata(body){
+  let res=await fetch(url,{
+    method:"POST",
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
+  let data=await res.json();
+  if(data.token){
+    return data.token;
+  }else {
+    alert("you are not a user please sign_up your self");
+    return false
+  }
+}
 
 const Login = () => {
-  const [email, setEmail] = useState('');
+  const [username, setusername] = useState('');
   const [password, setPassword] = useState('');
+  const [login,setlogin]=useState(false);
+  const [nextpage,setnextpage]=useState(false)
 
   const handleLogin = () => {
-    // Add authentication logic here
-    console.log('Logging in with:', email, password);
+    if(username && password){
+      setlogin(prev=>true);
+    }else{
+      alert("fill all the fields");
+    }
   };
+  useEffect(()=>{
+    if(login){
+      let body={username,password};
+    fetchdata(body).then((data)=>{
+      if(data){
+        console.log(data);
+        localStorage.setItem('token', data);
+        localStorage.setItem('username',username);
+       setnextpage(prev=>true); 
+      }
+     });
+      setlogin(prev=>false);
+    }
+  },[login])
+
 
   return (
-    <div>
-      <h2>LogIn</h2>
+    <>
+    {!nextpage&&<div className='sign_up'>
+      {!nextpage&&<><h2>LogIn</h2>
       <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={e => setEmail(e.target.value)}
+        type="test"
+        placeholder="username"
+        value={username}
+        onChange={e => setusername(e.target.value)}
       />
       <input
         type="password"
@@ -25,7 +66,11 @@ const Login = () => {
         onChange={e => setPassword(e.target.value)}
       />
       <button onClick={handleLogin}>Login</button>
+      <Link to="./Sign_up.js">Sign_up</Link></>}
     </div>
+}
+    {nextpage&&<Post></Post>}
+    </>
   );
 };
 
