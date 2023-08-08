@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Post from './Post';
 import Login from './Login';
 
-const url="http://localhost:4000/users/sign_up"
+const url="http://13.48.45.167:3006/users/sign_up"
 async function fetchdata(body){
   let res=await fetch(url,{
     method:"POST",
@@ -28,13 +28,13 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [signup,setsignup]=useState(false);
   const [isLoggedIn, setisLoggedIn]=useState(false);
+  const navgation=useNavigate()
   useEffect(()=>{
     if(signup){
       let body={username,password};
     fetchdata(body).then((data)=>{
       if(data){
-        setnextpage(prev=>true); 
-
+        navgation("/login");
       }
      });
       setsignup(prev=>false);
@@ -75,7 +75,7 @@ const SignUp = () => {
       <button onClick={handleSignUp}>Sign Up</button>
       
       <Link to="./Login.js">Login</Link></>}
-     {nextpage&&<Login></Login>}
+    
     </div>
   );
 };

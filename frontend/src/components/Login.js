@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Post from './Post';
 
-const url="http://localhost:4000/users/login"
+const url="http://13.48.45.167:3006/users/login"
 async function fetchdata(body){
   let res=await fetch(url,{
     method:"POST",
@@ -20,12 +20,12 @@ async function fetchdata(body){
   }
 }
 
-const Login = () => {
+const Login = ({onLogin}) => {
   const [username, setusername] = useState('');
   const [password, setPassword] = useState('');
   const [login,setlogin]=useState(false);
   const [nextpage,setnextpage]=useState(false)
-
+ const navgation=useNavigate();
   const handleLogin = () => {
     if(username && password){
       setlogin(prev=>true);
@@ -42,7 +42,9 @@ const Login = () => {
         localStorage.setItem('token', data);
         localStorage.setItem('username',username);
        setnextpage(prev=>true); 
-      }
+       onLogin();
+       navgation("/Post");
+            }
      });
       setlogin(prev=>false);
     }

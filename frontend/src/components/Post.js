@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { Link } from "react-router-dom";
-const url="http://localhost:4000/post/"
+const url="http://13.48.45.167:3006/post/"
 let token=localStorage.getItem("token");
 async function fetchdata(str){
         let res=await fetch(`${url+str}`,{
@@ -47,7 +47,7 @@ const Post=()=>{
    let body={
     postId:id,body:newcomment
    }
-   let res=await fetch("http://localhost:4000/comment/create",{
+   let res=await fetch("http://13.48.45.167:3006/comment/create",{
     method:"POST",
     headers: {
         'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ body: JSON.stringify(body)
 
 async function handledeletecomment(e){
    let  id=e.target.id;
-   let res=await fetch(`http://localhost:4000/comment//delete/${id}`,{
+   let res=await fetch(`http://13.48.45.167:3006/comment//delete/${id}`,{
     method:"DELETE",
     headers:{
         Authorization: token
@@ -114,7 +114,7 @@ async function handledeletecomment(e){
   <div className="body">
     <h1>Posts </h1>
     <h2 className="titlename">{title}</h2>
-    <ul>
+    <ul className="postBody">
     { postbody.map((el,i)=>{
     return (
         <div className="posts" key={i}>

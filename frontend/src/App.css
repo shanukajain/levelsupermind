@@ -120,3 +120,15 @@ margin-top: 30px;
 background-color: rgb(204, 102, 177);
 color:white;
 }
+.postBody{
+  display: flex;
+  grid-template-columns: repeat(1fr,3);
+  flex-wrap: wrap;
+ 
+}
+.posts{
+  background-color: rgb(250, 223, 223);
+  margin-left: 20px;
+  padding: 20px;
+  border-radius: 30px;
+}
