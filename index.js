@@ -21,7 +21,7 @@ app.get("/check",(req,res)=>{
     res.send("done");
 })
 
-app.listen("4000",async()=>{
+app.listen("3006",async()=>{
     try {
         await sequelize.sync();
         console.log("connect");
